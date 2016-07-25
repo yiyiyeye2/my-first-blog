@@ -15,5 +15,7 @@ class Post(models.Model):
 		self.save()
 		# To save an object back to the database
 
-	def _str_(self):
+	def __str__(self):
 		return self.title
+		# Double-check that you use two underscore characters (_) on each side of str. This convention is used frequently in Python and sometimes we also call them "dunder" (short for "double-underscore").
+

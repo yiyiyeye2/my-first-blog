@@ -5,19 +5,14 @@
 </head>
 
 <body>
-    <div>
-        <h1><a href="">UE blog</a></h1>
-    </div>
-    <div>
-        <p>published:</p>
-        <h2><a href="">my first post</a></h2>
-        <p>bla bla bla....</p>
-    </div>
-    <div>
-        <p>published:</p>
-        <h2><a href="">my first post</a></h2>
-        <p>bla bla bla....</p>
-    </div>
+<div><h1>This is my first test</h1></div>
+{%for post in posts%}
+	<div>
+		<p>published:{{post.published_date}}</p>
+		<h1><a href="">{{post.title}}</a></h1>
+		<p>{{post.text|linebreaksbr}}</p>
+	</div>
+{%endfor%}
 </body>
 
 </html>
