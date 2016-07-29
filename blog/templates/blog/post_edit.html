@@ -1,0 +1,10 @@
+{% extends 'blog/base.html'%}
+
+{%block content%}
+	<h1>New post</h1>
+	<form method="Post" class="post-form">
+		{%csrf_token%}
+		{{form.as_p}}<!-- will render them wrapped in <p> tags -->
+		<button type="submit" class="save btn btn-default">Save</button>
+	</form>
+{%endblock%}
