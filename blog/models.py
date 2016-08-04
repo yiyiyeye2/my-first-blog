@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-
+ 
 class Post(models.Model):
 	author = models.ForeignKey('auth.User')
 	title = models.CharField(max_length=200)
@@ -16,9 +16,12 @@ class Post(models.Model):
 	def __str__(self):
 		return self.title
 		# Double-check that you use two underscore characters (_) on each side of str. This convention is used frequently in Python and sometimes we also call them "dunder" (short for "double-underscore").
+	def approved_comments(self):
+		return self.comments.filter(approved_comment=True)
 
 class Comment(models.Model):
 	post = models.ForeignKey('blog.post', related_name='comments')
+	# related_name关联对象反向引用描述符
 	author = models.CharField(max_length=200)
 	text = models.TextField()
 	created_date = models.DateTimeField(default = timezone.now)
