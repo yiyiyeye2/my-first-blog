@@ -9,6 +9,9 @@ urlpatterns = [
 	url(r'^drafts/$',views.post_draft_list,name='post_draft_list'),
 	url(r'^post/(?P<pk1>\d+)/publish/$', views.post_publish, name='post_publish'),
 	url(r'^post/(?P<pk1>\d+)/remove/$', views.post_remove, name='post_remove'),
+	url(r'^post/(?P<pk1>\d+)/comment/$', views.add_comment_to_post, name='add_comment_to_post'),
+	url(r'^comment/(?P<pk1>\d+)/approve/$', views.comment_approve, name='comment_approve'),
+	url(r'^comment/(?P<pk1>\d+)/remove/$', views.comment_remove, name='comment_remove'),
 	
 
 	# There are two functions of this urlpattern, the first one is to create anurls.py file url using {%url%} model

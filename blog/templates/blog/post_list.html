@@ -9,6 +9,8 @@
     		<!-- pk is primary key which is one of the properties of query, like id we use --> 
     		<!-- post_detail is the name of an URL created in urls.py file. %url% is a model which obey the regular expression created in urls.py file -->
     		<p>{{post.text|linebreaksbr}}</p>
+            <a href="{%url 'post_detail' pk1=post.pk%}">Comments: {{post.approved_comments.count}}</a>
+            <!-- !!!!! -->
 		</div>
 	{%endfor%} 
 {%endblock%}

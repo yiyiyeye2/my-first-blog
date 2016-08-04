@@ -20,4 +20,28 @@
 		<p>{{post.text|linebreaksbr}}</p>
 	</div>
     <div><img src="{%static 'image/image.jpg'%}" alt="image"></div>
+
+	<hr>
+	<a href="{%url 'add_comment_to_post' pk1=post.pk%}" class="btn btn-default">Add comment</a>
+	{%for comment in post.comments.all%}
+		{%if user.is_authenticated or comment.approved_comment%}
+		<div class="comment">
+		<a class="btn btn-default" href="{%url 'comment_remove' pk1=comment.pk%}"><span class="glyphicon glyphicon-remove"></span></a>
+		<div class="date">
+			<samll>{{comment.created_date}}</small>
+			{%if not comment.approved_comment%}
+					<a class="btn btn-default" href="{%url 'comment_approve' pk1=comment.pk%}"><span class="glyphicon glyphicon-ok"></span></a>
+			{%endif%}
+		</div>
+
+			<strong>{{comment.author}}</strong><br>
+			<p>{{comment.text|linebreaks}}</p>
+		</div>
+		{%endif%}
+	{%empty%}
+		<p>No comments here yet :(</p>
+	{%endfor%}
+
+
 {%endblock%}
+

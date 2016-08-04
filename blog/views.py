@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
-from .models import Post
-from .forms import PostForm
+from .models import Post, Comment
+from .forms import PostForm, CommentForm
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 
@@ -68,3 +68,30 @@ def post_remove(request, pk1):
 	post = get_object_or_404(Post, pk=pk1)
 	post.delete()
 	return redirect('blog.views.post_list')
+
+def add_comment_to_post(request, pk1):
+	post = get_object_or_404(Post, pk=pk1)
+	if request.method == "POST":
+		form = CommentForm(request.POST)
+		if form.is_valid():
+			comment = form.save(commit=False)
+			# The most common situation is to get the instance from form but only 'in memory', not in database. Before save it you want to make some changes:
+			comment.post = post
+			comment.save()
+			return redirect('blog.views.post_detail',pk1=post.pk)
+	else:
+		form = CommentForm()
+	return render(request, 'blog/add_comment_to_post.html', {'form':form})
+
+@login_required
+def comment_approve(request,pk1):
+	comment = get_object_or_404(Comment, pk=pk1)
+	comment.approve()
+	return redirect('blog.views.post_detail', pk1=comment.post.pk)
+
+@login_required
+def comment_remove(request,pk1):
+	comment = get_object_or_404(Comment, pk=pk1)
+	post_pk=comment.post.pk
+	comment.delete()
+	return redirect('blog.views.post_detail', pk1=post_pk)
